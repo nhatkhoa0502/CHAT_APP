@@ -1,4 +1,4 @@
-package com.example.chatapp.Notification;
+package com.abc.myapplication.Notification;
 
 import com.example.chatapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
