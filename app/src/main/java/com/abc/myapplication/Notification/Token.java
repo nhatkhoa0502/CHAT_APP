@@ -1,4 +1,4 @@
-package com.example.chatapp.Notification;
+package com.abc.myapplication.Notification;
 
 public class Token {
     private String token;
