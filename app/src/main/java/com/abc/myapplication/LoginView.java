@@ -156,6 +156,20 @@ import java.util.HashMap;
      /**
       * Validate fields
       */
+
+
+      public Boolean validatePassword(){
+        String val = txtPassword.getText().toString();
+        if(val.isEmpty()){
+            txtPassword.setError("Username cannot be empty");
+            return false;
+        }else{
+            txtPassword.setError(null);
+            return true;
+        }
+    }
+
+
      public Boolean validateUsername(){
          String val = txtEmail.getText().toString();
          if(val.isEmpty()){
@@ -167,16 +181,7 @@ import java.util.HashMap;
          }
      }
 
-     public Boolean validatePassword(){
-         String val = txtPassword.getText().toString();
-         if(val.isEmpty()){
-             txtPassword.setError("Username cannot be empty");
-             return false;
-         }else{
-             txtPassword.setError(null);
-             return true;
-         }
-     }
+   
      /**
       * Login by Google
       */
@@ -290,6 +295,11 @@ import java.util.HashMap;
              signInButton.setAlpha(1.0f);  // Set the button to look "enabled"
          }
      }
+
+
+
+
+     
      /**
       * Login by email and password
       */
