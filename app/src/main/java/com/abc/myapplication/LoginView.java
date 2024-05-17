@@ -262,7 +262,7 @@ import java.util.HashMap;
              });
          }
 
-         //If a layout container, iterate over children and seed recursion.
+         //If a layout container, iterate over children and seed recursion
          if (view instanceof ViewGroup) {
              for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
                  View innerView = ((ViewGroup) view).getChildAt(i);
@@ -281,7 +281,7 @@ import java.util.HashMap;
          }
      }
      /**
-      * Disables the sign-in button if either email or password fields are empty.
+      * Disables the sign-in button if either email or password fields are empty
       */
      private void checkFieldsForEmptyValues(EditText txtEmail, EditText txtPassword, Button signInButton) {
          String email = txtEmail.getText().toString();
