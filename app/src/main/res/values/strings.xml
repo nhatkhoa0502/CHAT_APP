@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">ChatApp</string>
+    <string name="default_web_client_id" translatable="false">153676523123-cittl0i0klhrbks4o55od28h5ait65m4.apps.googleusercontent.com</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="channel_id">com.example.chatapp</string>
+    <string name="channel_name">chatapp</string>
+    <string name="channel_description">chatapp_description</string>
 </resources>
