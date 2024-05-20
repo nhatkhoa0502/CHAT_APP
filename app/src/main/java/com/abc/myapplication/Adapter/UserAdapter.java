@@ -80,7 +80,68 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     }
 
-    
+    @Override
+    public int getItemCount() {
+        return mUsers.size();
+    }
 
-    
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView username;
+        public ImageView profileImage;
+        private ImageView img_on;
+        private ImageView img_off;
+        private TextView last_message;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.username = itemView.findViewById(R.id.username);
+            this.profileImage = itemView.findViewById(R.id.profileImage);
+            this.img_on = itemView.findViewById(R.id.img_on);
+            this.img_off = itemView.findViewById(R.id.img_off);
+            this.last_message = itemView.findViewById(R.id.last_message);
+        }
+    }
+
+    private void lastMessage(final String userid, final String username, final TextView last_message) {
+        theLastMessage = "default";
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("chats");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (firebaseUser!= null) {
+                    for (DataSnapshot sn : snapshot.getChildren()) {
+                        Chat chat = sn.getValue(Chat.class);
+                        if (chat.getReceiver().equals(firebaseUser.getUid()) && chat.getSender().equals(userid)) {
+                            int lastIndex = username.lastIndexOf(' ');
+                            if(chat.getDuration() == 0){
+                                theLastMessage = username.substring(lastIndex + 1) + ": " + chat.getMessage();
+                            }else{
+                                theLastMessage = username.substring(lastIndex + 1) + ": [Audio Message]";
+                            }
+                        } else if (chat.getReceiver().equals(userid) && chat.getSender().equals(firebaseUser.getUid())) {
+                            if(chat.getDuration() == 0){
+                                theLastMessage = "You: " + chat.getMessage();
+                            }else{
+                                theLastMessage = "You: [Audio Message]";
+                            }
+                        }
+                    }
+                    if (theLastMessage.equals("default")) {
+                        last_message.setText("No Message!!!");
+                    } else {
+                        last_message.setText(theLastMessage);
+                    }
+                    theLastMessage = "default";
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }
