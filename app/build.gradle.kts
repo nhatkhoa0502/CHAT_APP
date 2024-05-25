@@ -40,7 +40,22 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
+    implementation("com.github.bumptech.glide:glide:4.16.0") //Load Image
     implementation("de.hdodenhof:circleimageview:3.1.0")
+
+    implementation("com.opentok.android:opentok-android-sdk:2.27.1") // Video Call
+    implementation("pub.devrel:easypermissions:3.0.0")
+
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0") //QR Code
+
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation("com.google.firebase:firebase-database") // realtime db
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-storage") //mp3, image
+    implementation("com.google.firebase:firebase-messaging") // notification message
+    implementation("com.google.firebase:firebase-auth") // login
+
+    implementation("com.google.android.gms:play-services-auth:21.0.0") // login with google
 
     implementation("com.squareup.retrofit2:retrofit:2.11.0") // Call API
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")

@@ -1,16 +1,15 @@
-package com.example.chatapp;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+package com.abc.myapplication;
 
 import android.Manifest;
-import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,8 +32,8 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class VideoChatActivity extends AppCompatActivity implements Session.SessionListener, PublisherKit.PublisherListener {
 
     private static String API_KEY = "47881211";
-    private static String SESSION_ID = "2_MX40Nzg4MTIxMX5-MTcxNDg4MjA5MzM4N352OVZsS3FXenhYOW9Hbm53UTFuMGgxbHF-fn4";
-    private static String TOKEN = "T1==cGFydG5lcl9pZD00Nzg4MTIxMSZzaWc9OTdlMDE4MDA4NDNkYTAxZjYyMmM0YzE3ZmMzNTFhYjYyZTM2ODQxMTpzZXNzaW9uX2lkPTJfTVg0ME56ZzRNVEl4TVg1LU1UY3hORGc0TWpBNU16TTROMzUyT1Zac1MzRlhlbmhZT1c5SGJtNTNVVEZ1TUdneGJIRi1mbjQmY3JlYXRlX3RpbWU9MTcxNDg4MjEyNiZub25jZT0wLjMxNDI4MjUzNTY1MDAwNjEmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTcxNzQ3NDEyNSZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ==";
+    private static String SESSION_ID = "1_MX40Nzg4MTIxMX5-MTcxNjEwNTU1NDk1M340b0J0SmtxMWQ5VkpIL3pvcHBuV3VDczl-fn4";
+    private static String TOKEN = "T1==cGFydG5lcl9pZD00Nzg4MTIxMSZzaWc9MWY3ZjEyZGRmZWYyODk4ODdlZjA5Njk1YmZjZjI0OTQ5Zjc0MjBlZTpzZXNzaW9uX2lkPTFfTVg0ME56ZzRNVEl4TVg1LU1UY3hOakV3TlRVMU5EazFNMzQwYjBKMFNtdHhNV1E1VmtwSUwzcHZjSEJ1VjNWRGN6bC1mbjQmY3JlYXRlX3RpbWU9MTcxNjEwNTU2NSZub25jZT0wLjY0OTc0MTc1NzcxNTEzMTImcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTcxODY5NzU2MyZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ==";
     private static final String LOG_TAG = VideoChatActivity.class.getSimpleName();
     private static final int RC_VIDEO_APP_PERM = 124;
     private FrameLayout mPublisherViewController;
