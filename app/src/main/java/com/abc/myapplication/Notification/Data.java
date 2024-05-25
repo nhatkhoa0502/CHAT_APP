@@ -1,4 +1,4 @@
-package com.abc.myapplication.Notification;
+package com.example.chatapp.Notification;
 
 public class Data {
     private String senderName;

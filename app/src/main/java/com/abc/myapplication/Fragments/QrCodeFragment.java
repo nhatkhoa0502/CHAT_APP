@@ -30,6 +30,7 @@ import com.example.chatapp.Notification.Data;
 import com.example.chatapp.Notification.MyResponse;
 import com.example.chatapp.Notification.Sender;
 import com.example.chatapp.R;
+import com.example.chatapp.StartActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -61,8 +62,7 @@ public class QrCodeFragment extends Fragment {
     private TextView txt_username;
     private String userId;
     FirebaseUser firebaseUser;
-    DatabaseReference databaseReference, tokenRef;
-    private APIService apiService;
+    DatabaseReference databaseReference;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,9 +77,7 @@ public class QrCodeFragment extends Fragment {
         userId = firebaseUser.getUid();
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        tokenRef = FirebaseDatabase.getInstance().getReference("tokens");
 
-        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
@@ -138,20 +136,8 @@ public class QrCodeFragment extends Fragment {
                             User user = sn.getValue(User.class);
                             if (user.getId().equals(userIdFromQRCode)) {
                                 isValidQrCode = true;
-
-                                HashMap<String, Object> hashMap = new HashMap<>();
-                                hashMap.put("sender", userId);
-                                hashMap.put("receiver", userIdFromQRCode);
-                                hashMap.put("message", "Hello, I'm from QR Code!!!");
-                                hashMap.put("time", new Date().getTime());
-                                hashMap.put("isseen", false);
-                                databaseReference.child("chats").push().setValue(hashMap);
-
-                                sendNotification(firebaseUser.getDisplayName(), "Hello, I'm from QR Code!!!", userIdFromQRCode);
-
-                                Intent intent = new Intent(getActivity(), MessageActivity.class);
-                                intent.putExtra("userid", userIdFromQRCode);
-                                startActivity(intent);
+                                sendFriendRequest(userIdFromQRCode);
+                                Toast.makeText(getContext(), "Request Friend Success!!!", Toast.LENGTH_SHORT).show();
                                 break;
                             }
                         }
@@ -174,35 +160,12 @@ public class QrCodeFragment extends Fragment {
         }
     });
 
-    private void sendNotification(String senderName, String message, String receiverUserId) {
-        tokenRef.child(receiverUserId).child("token").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String token = dataSnapshot.getValue(String.class);
-                Data data = new Data(senderName, message);
-                Sender sender = new Sender(data, token);
-                apiService.sendNotifcation(sender).enqueue(new Callback<MyResponse>() {
-                    @Override
-                    public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-                        if (response.code() == 200) {
-                            if (response.body().success != 1) {
-                                Toast.makeText(getContext(), "Failed ", Toast.LENGTH_LONG);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<MyResponse> call, Throwable t) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+    private void sendFriendRequest(String userId) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", "pending");
+        reference.child("requests").child(userId).child(firebaseUser.getUid()).setValue(hashMap);
     }
+
 
 }
